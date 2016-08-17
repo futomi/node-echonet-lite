@@ -1,7 +1,9 @@
 node-echonet-lite
 ===============
 
-The node-echonet-lite is a Node.js module which allows you to communicate with home appliances supporting the ECHONET Lite protocol. This module provides you with functions such as listening, parsing, creating, sending ECHONET Lite packets over LAN/IPv4 on LAN (Wi-Fi or Ehternet) and UDP/IPv6 on Wi-SUN.
+The node-echonet-lite is a Node.js module which allows you to communicate with home appliances supporting the ECHONET Lite protocol.
+
+This module provides you with functions such as listening, parsing, creating, sending ECHONET Lite packets over LAN/IPv4 on LAN (Wi-Fi or Ehternet) and UDP/IPv6 on Wi-SUN.
 
 The ECHONET Lite is a communications protocol for smart home devices, which is mainly used in Japan. This module is based on the ECHONET Lite specifications which are available at the web site of the ECHONET Consortium:
 
