@@ -1,0 +1,30 @@
+{
+  "name": "node-echonet-lite",
+  "version": "0.0.1",
+  "description": "The node-echonet-lite is a Node.js module which allows you to communicate with home appliances supporting the ECHONET Lite protocol. This module provides you with functions such as listening, parsing, creating, sending ECHONET Lite packets over LAN/IPv4 on LAN (Wi-Fi or Ehternet) and UDP/IPv6 on Wi-SUN.",
+  "main": "./lib/node-echonet-lite.js",
+  "files": [
+    "lib"
+  ],
+  "directories": {
+    "lib": "./lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Echonet Lite",
+    "Wi-SUN"
+  ],
+  "homepage": "https://github.com/futomi",
+  "author": "Futomi Hatano <futomi.hatano@gmail.com> (https://github.com/futomi)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/futomi/node-echonet-lite.git"
+  },
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "serialport": ">=4.0.1"
+  }
+}
