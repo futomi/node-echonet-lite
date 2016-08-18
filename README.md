@@ -647,15 +647,17 @@ The sample code above will print the result as follows:
 
 ### <a name="setPropertyValue-method"> setPropertyValue(*address, eoj, epc, edt[, callback]*)</a>
 
-This method set the property value of the specified EPC to the specified device.
+This method sets the specified property value (`edt`) of the specified EPC (`epc`) to the specified device (`eoj` in `address`).
 
 This method takes five arguments. the 1st argument `addresss` is the IP address of the targeted device. This argument is required. The IP address can be get from the discovery process.
 
 The 2nd argument `eoj` is the EOJ of the targeted device. This argument is required. It must be passed as an `Array` object. The `Array` object can be get from the discovery process.
 
-The 3rd argument `epc` is the EPC you want to get. This argument is required. You have to know which EPC you want is in advance. you can find the meanings of EPCs in [the APPENDIX of the ECHONET Lite specification](http://echonet.jp/spec_object_rf_en/).
+The 3rd argument `epc` is the EPC you want to set. This argument is required. You have to know the EPC you want to set in advance. you can find the meanings of EPCs in [the APPENDIX of the ECHONET Lite specification](http://echonet.jp/spec_object_rf_en/).
 
 The 4th argument `edt` is the [`EDT`](#EDT-object) object which contains some values you want to convey to the targeted device. It is just a hash object. The structure depends on the EPC. See the section "[EDT object](#EDT-object)" for details.
+
+You can specify the 4th argument `edt` as a `Buffer` object as well. Though you have to create a `Buffer` object representing the EDT by yourself, this allows you to send an arbitrary EDT.
 
 The 5th argument `callback` is a callback function called when this method completes the process. This argument is optional. Two arguments will be passed to the `callback`. The 1st argument is an `Error` object. If no error occurred, it will be `null`. If this method completes the process successfully, the [`Response`](#Response-object) object will be passed as the 2nd argument.
 
@@ -686,9 +688,20 @@ el.startDiscovery((err, res) => {
       } else {
         console.log('- Result: Failed');
       }
-      process.exit();
+      el.close();
     });
   }
+});
+```
+
+You can specify a `Buffer` object as the part of EDT as follows:
+
+``` JavaScript
+// Create a Buffer object for the EDT
+var edt = new Buffer([0x31]);
+// Turn off the home air conditioner
+el.setPropertyValue(address, eoj, 0x80, edt, (err, res) => {
+  // If succeeded, the air conditioner should be turned off.
 });
 ```
 
@@ -716,6 +729,12 @@ The 4th argument `prop` is an `Array` object consisting of hash objects containi
 
 ```JavaScript
 [{'epc': 0x80, 'edt': {'status': false}}]
+```
+
+You can set the value of `edt` property as an `Buffer` object as follows. Though you have to know the byte sequences specified in the ECHONET Lite specification, you can send an arbitrary EDT.
+
+```JavaScript
+[{'epc': 0x80, 'edt': new Buffer([0x31])}]
 ```
 
 If you just want to get the values from the targeted devices, the [`EDT`](#EDT-object) object must be `null`.
