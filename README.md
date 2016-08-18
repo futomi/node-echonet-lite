@@ -78,6 +78,7 @@ $ npm install node-echonet-lite
 	* [`getClassName(group_code, class_code)`](#getClassName-method)
 	* [`getPropertyName(group_code, class_code, epc)`](#getPropertyName-method)
 	* [`isSupportedEpc(group_code, class_code, epc)`](#isSupportedEpc-method)
+	* [`setSelfEoj(eoj)`](#setSelfEoj-method)
 	* [`startDiscovery([callback])`](#startDiscovery-method)
 	* [`stopDiscovery()`](#stopDiscovery-method)
 	* [`getPropertyMaps(address, eoj[, callback])`](#getPropertyMaps-method)
@@ -138,7 +139,7 @@ The instance code is basically `0x01`. The node-echonet-lite module provide you 
 
 An EOJ is expressed as an `Array` object in the node-echonet-lite module, such as `[0x01, 0x03, 0x01]`. Some method of the node-echonet-lite requires such an `Array` object as an argument.
 
-This node-echonet-lite module uses the EOJ `[0x05, 0xFF, 0x01]` as itself (i.e. you). This EOJ means the Controller class in the management, control-related device class group, and instance code 1.
+This node-echonet-lite module uses the EOJ `[0x05, 0xFF, 0x01]` as itself (i.e. you) by default. This EOJ means the Controller class in the management, control-related device class group, and instance code 1. you can change the self-EOJ using the [`setSelfEoj()`](#setSelfEoj-method) method anytime.
 
 ### ESV (ECHONET Lite service)
 
@@ -491,6 +492,18 @@ If the language setting is `ja`, the result will be as follows:
 - Property name : 開速度設定
 - Is supported  : No
 ```
+
+### <a name="setSelfEoj-method"> setSelfEoj(*eoj*)</a>
+
+This method allows you to set the self-EOJ to arbitrary EOJ. The first argument `eoj` must be an `Array` object consisting three codes: the class group code, the class code, and the instance code. Each code must be an integer in the range of 0 (`0x00`) to 255 (`0xFF`).
+
+```JavaScript
+var el = new EchonetLite({'type': 'lan'});
+el.setSelfEoj([0x06, 0x04, 0x01]);
+```
+Once you set the self-EOJ, this module uses it for the SEOJ of each ECHONET Lite packet to be sent even when the discovery process is executed. You can use this method at any time after the `EchonetLite` object was created.
+
+If you don't call this method, this module uses the default self-EOJ `[0x05, 0xFF, 0x01]` as the SEOJ of each ECHONET Lite packet to be sent. This default self-EOJ means the Controller class in the management, control-related device class group, and instance code 1.
 
 ### <a name="startDiscovery-method"> startDiscovery(*[callback]*)</a>
 
