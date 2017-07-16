@@ -101,6 +101,7 @@ $ npm install node-echonet-lite
 * [Supported EPCs](#Supported-EPCs)
 * [Monitoring ECHONET Lite packets](#Monitoring-ECHONET-Lite-packets)
 * [How to handle unknown EPCs](#How-to-handle-unknown-EPCs)
+* [Release Note](#Release-Note)
 * [License](#License)
 
 ---------------------------------------
@@ -1331,6 +1332,12 @@ function parseTempEdt(buf) {
   }
 }
 ```
+
+---------------------------------------
+## <a id="Release-Note">Release Note</a>
+
+* v0.0.4 (2017-07-6)
+  * Fixed a bug of the `setTimeout()` handling in the wi-sun mode.
 
 ---------------------------------------
 ## <a name="License"> License</a>
