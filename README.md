@@ -1336,7 +1336,7 @@ function parseTempEdt(buf) {
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
 
-* v0.0.4 (2017-07-6)
+* v0.0.4 (2017-07-16)
   * Fixed a bug of the `setTimeout()` handling in the wi-sun mode.
 
 ---------------------------------------
