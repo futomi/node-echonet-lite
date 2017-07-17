@@ -57,14 +57,19 @@ If you want to communicate with a smart electric energy meter, you have to get e
 Before using the node-echonet-lite module, you have to know the basics of the ECHONET Lite specification. See the section "[ECHONET Lite Tutorial](#Tutorial)" for details.
 
 ## Dependencies
+
 - [Node.js](https://nodejs.org/en/) 4.4 +
 - [serialport](https://www.npmjs.com/package/serialport)
-  - Required if Wi-SUN USB dongle is used.
+  - Required if a Wi-SUN USB dongle is used.
 
 ## Installation
+
 ```
+$ cd ~
+$ npm install serialport
 $ npm install node-echonet-lite
 ```
+
 ---------------------------------------
 ## Table of Contents
 
@@ -108,7 +113,7 @@ $ npm install node-echonet-lite
 * [License](#License)
 
 ---------------------------------------
-## <a name="Tutorial"> ECHONET Lite Tutorial</a>
+## <a id="Tutorial">ECHONET Lite Tutorial</a>
 
 The ECHONET Lite packet consists of several blocks as follows:
 
@@ -179,7 +184,7 @@ If the EPC is supported by this module (i.e. a supported EPC), you don't need to
 Even if the EPC is not supported by this module, you can obtain the Buffer object representing the EDT. Though you need to know the data structure of the EDT, you can parse any EDT by yourself. See the section [How to handle unknown EPCs](#How-to-handle-unknown-EPCs) for details.
 
 ---------------------------------------
-## <a name="Quick-Start"> Quick Start</a>
+## <a id="Quick-Start">Quick Start</a>
 
 This section shows how to discover a specific type of device, how to get a value of a specific property of the device, and how to set a value to the property of the device.
 
@@ -349,7 +354,7 @@ Measured instantaneous electric energy is 402 W.
 Closed.
 ```
 ---------------------------------------
-## <a name="Operating-suggestions"> Operating suggestions</a>
+## <a id="Operating-suggestions">Operating suggestions</a>
 
 If you want to send multiple requests, never send them simultaneously. Be sure to send a request after the response for the previous request came. You should know the remote device is not a high-performance computer such as a personal computer or a smart phone. It is a poor-performance embedded device. Never put unnecessary pressure on such devices in order to avoid unexpected problems.
 
@@ -404,7 +409,7 @@ How long you should wait, it depends on conditions. You might have to wait longe
 The suggestion described here is applied to the all methods sending a packet as well: [`getPropertyMaps()`](#getPropertyMaps-method), [`getPropertyValue()`](#getPropertyValue-method), [`setPropertyValue()`](#setPropertyValue-method), and [`send()`](#send-method).
 
 ---------------------------------------
-## <a name="Constructor"> Constructor of the EchonetLite object</a>
+## <a id="Constructor">Constructor of the EchonetLite object</a>
 
 In order to use the node-echonet-lite, you have to load the node-echonet-lite module as follows:
 
@@ -475,11 +480,11 @@ var el2 = new EchonetLite({'type': 'wisunb', ...});
 ```
 
 ---------------------------------------
-## <a name="Methods"> Methods</a>
+## <a id="Methods">Methods</a>
 
 This section describes the methods implemented in the `EchonetLite` object.
 
-### <a name="init-method"> init(*callback*)</a>
+### <a id="init-method">init(*callback*)</a>
 
 This method initializes the `EchonetLite` object. You have to initialize the `EchonetLite` object immediately after you create it.
 
@@ -500,7 +505,7 @@ el.init((err) => {
 });
 ```
 
-### <a name="setLang-method"> setLang(*lang*)</a>
+### <a id="setLang-method">setLang(*lang*)</a>
 
 This method set the language for the packet analysis. Basically you don't need to call this method. If you want to get the results of the packet analysis, you can choose the language from English and Japanese.
 
@@ -518,10 +523,10 @@ var lang = el.setLang('en');
 ```
 This method can be called anytime after the `EchonetLite` object was created. You don't need to wait for the completion of the initialization process of the `EchonetLite` object.
 
-### <a name="getClassGroupName-method"> getClassGroupName(*group_code*)</a>
-### <a name="getClassName-method"> getClassName(*group_code, class_code*)</a>
-### <a name="getPropertyName-method"> getPropertyName(*group_code, class_code, epc*)</a>
-### <a name="isSupportedEpc-method"> isSupportedEpc(*group_code, class_code, epc*)</a>
+### <a id="getClassGroupName-method">getClassGroupName(*group_code*)</a>
+### <a id="getClassName-method">getClassName(*group_code, class_code*)</a>
+### <a id="getPropertyName-method">getPropertyName(*group_code, class_code, epc*)</a>
+### <a id="isSupportedEpc-method">isSupportedEpc(*group_code, class_code, epc*)</a>
 
 The `getClassGroupName()` method, the `getClassName()` method, and the `getPropertyName()` method returns the class group name, the class name, and the property name respectively. These names are defined in the ECHONET Lite specification. The node-echonet-lite module knows all names specified in the spec.
 
@@ -578,7 +583,7 @@ If the language setting is `ja`, the result will be as follows:
 - Is supported  : No
 ```
 
-### <a name="setSelfEoj-method"> setSelfEoj(*eoj*)</a>
+### <a id="setSelfEoj-method">setSelfEoj(*eoj*)</a>
 
 This method allows you to set the self-EOJ to arbitrary EOJ. The first argument `eoj` must be an `Array` object consisting three codes: the class group code, the class code, and the instance code. Each code must be an integer in the range of 0 (`0x00`) to 255 (`0xFF`).
 
@@ -590,7 +595,7 @@ Once you set the self-EOJ, this module uses it for the SEOJ of each ECHONET Lite
 
 If you don't call this method, this module uses the default self-EOJ `[0x05, 0xFF, 0x01]` as the SEOJ of each ECHONET Lite packet to be sent. This default self-EOJ means the Controller class in the management, control-related device class group, and instance code 1.
 
-### <a name="startDiscovery-method"> startDiscovery(*[callback]*)</a>
+### <a id="startDiscovery-method">startDiscovery(*[callback]*)</a>
 
 This method start the discovery process and tries to find ECHONET Lite devices. Whenever a ECHONET Lite device was found, the `callback` function specified to the 1st argument will be called. The `callback` is optional.
 The `callback` will be passed two argument. The 1st argument is an `Error` object. If no error occurred, it will be `null`.
@@ -625,11 +630,11 @@ If no ECHONET Lite device was found, more than one network adapter might exist o
 
 Be sure to call `stopDiscovery()` method if the targeted device was found.
 
-### <a name="stopDiscovery-method"> stopDiscovery()</a>
+### <a id="stopDiscovery-method">stopDiscovery()</a>
 
 This method stop the discovery process. After the `startDiscovery()` method was called and the targeted device was found, then be sure to call this method before controlling the targeted devices.
 
-### <a name="getPropertyMaps-method"> getPropertyMaps(*address, eoj[, callback]*)</a>
+### <a id="getPropertyMaps-method">getPropertyMaps(*address, eoj[, callback]*)</a>
 
 This method get the property maps from the specified device. The property maps let you know which EPCs the device supports. Therefore getting the property maps is essential in order to interact with ECHONET Lite devices.
 
@@ -684,7 +689,7 @@ The sample code above will print the result as follows:
 
 It is encouraged to check the property maps before interacting with the targeted device.
 
-### <a name="getPropertyValue-method"> getPropertyValue(*address, eoj, epc[, callback]*)</a>
+### <a id="getPropertyValue-method">getPropertyValue(*address, eoj, epc[, callback]*)</a>
 
 This method get the property value of the specified EPC from the specified device.
 
@@ -732,7 +737,7 @@ The sample code above will print the result as follows:
 { temperature: 26 }
 ```
 
-### <a name="setPropertyValue-method"> setPropertyValue(*address, eoj, epc, edt[, callback]*)</a>
+### <a id="setPropertyValue-method">setPropertyValue(*address, eoj, epc, edt[, callback]*)</a>
 
 This method sets the specified property value (`edt`) of the specified EPC (`epc`) to the specified device (`eoj` in `address`).
 
@@ -802,7 +807,7 @@ The sample code above will print the result as follows:
 - Result: Success
 ```
 
-### <a name="send-method"> send(*address, eoj, esv, prop[, callback]*)</a>
+### <a id="send-method">send(*address, eoj, esv, prop[, callback]*)</a>
 
 This method sends an arbitrary ECHONET Lite packet to the specified device. It is most primitive method in this module. The `getPropertyValue()` and the `setPropertyValue()` method can tread only one EPC. But the ECHONET Lite specification allows us to treat multiple EPCs simultaneously in one ECHONET Lite packet. Using this method, you can send a request packet including multiple EPCs.
 
@@ -880,7 +885,7 @@ The sample code above will print the result as follows:
 - Outdoor Temperature: 28 Celsius
 ```
 
-### <a name="close-method"> close(*[callback]*)</a>
+### <a id="close-method">close(*[callback]*)</a>
 
 This method closes the opening network port and restores the `EchonetLite` object to the state immediately after it was newly created. If your task has been completed, it is encouraged to call this method. If you don't call this method, your script will never terminates because the network port is still active.
 
@@ -895,11 +900,11 @@ el.close(() => {
 ```
 
 ---------------------------------------
-## <a name="Events"> Events</a>
+## <a id="Events">Events</a>
 
 Whenever an ECHONET Lite packet comes or is sent, several events are fired on the `EchonetLite` object. You can listen to events using `on()` method on the `EchonetLite` object. The event listeners must be set after the initialization process by the `init()` method has been completed.
 
-### <a name="notify-event"> `notify` event</a>
+### <a id="notify-event">`notify` event</a>
 
 The `notify` event will be fired whenever any ECHONET Lite packets except the responses for `getPropertyValue()`, `setPropertyValue()`, `getPropertyMaps()`, and `send()` methods was received.
 
@@ -931,7 +936,7 @@ el.init((err) => {
 
 An [`Response`](#Response-object) object is passed to the callback function as the 1st argument.
 
-### <a name="data-event"> `data` event</a>
+### <a id="data-event">`data` event</a>
 
 The `data` event will be fired whenever any ECHONET Lite packet was received.
 
@@ -963,7 +968,7 @@ el.init((err) => {
 An [`Response`](#Response-object) object is passed to the callback function as the 1st argument.
 
 
-### <a name="sent-event"> `sent` event</a>
+### <a id="sent-event">`sent` event</a>
 
 The `sent` event will be fired whenever any ECHONET Lite packet was sent.
 
@@ -995,7 +1000,7 @@ el.init((err) => {
 
 An [`Response`](#Response-object) object is passed to the callback function as the 1st argument.
 
-### <a name="data-serial-event"> `data-serial` event</a>
+### <a id="data-serial-event">`data-serial` event</a>
 
 The `data-serial` event will be fired whenever any data was received from the Wi-SUN USB dongle. This event is mainly used for debugging.
 
@@ -1052,17 +1057,16 @@ EVENT 21 FE80:0000:0000:0000:0000:0000:0000:0000 00
 OK
 ```
 
-
-### <a name="sent-serial-event"> `sent-serial` event</a>
+### <a id="sent-serial-event">`sent-serial` event</a>
 
 The `send-serial` event will be fired whenever any data was sent to the Wi-SUN USB dongle. This event is mainly used for debugging.
 
 See the previous section for details.
 
 ---------------------------------------
-## <a name="Objects"> Objects</a>
+## <a id="Objects">Objects</a>
 
-### <a name="Response-object"> `Response` object</a>
+### <a id="Response-object">`Response` object</a>
 
 The `Response` object represents an ECHONET Lite packet coming from an ECHONET Lite device. It is passed to the callback function for the [`getPropertyMaps()` method](#getPropertyMaps-method), the [`getPropertyValue()` method](#getPropertyValue-method), the [`setPropertyValue()` method](#setPropertyValue-method) as the 2nd argument. Besides, it is passed to the callback function for an [event](#Events) handler as the 1st argument.
 
@@ -1078,7 +1082,7 @@ Property      | Type    | Description
 `lang`        | String  | The language of the formatted text provided by the `formatted` property. This value is either `en` (English) or `ja` (Japanese).
 `structure`   | Array   | This array is used for debugging. You probably don't need this array. If you need to investigate ECHONET Lite packets, the `formatted` property would be more useful. If you are interested in this array, you can see the structure using `console.dir()`.
 
-### <a name="Device-object"> `Device` object</a>
+### <a id="Device-object">`Device` object</a>
 
 The `Device` object represents the device relevant to the ECHONET Lite packet. If the packet is received one, this object represents the source device of the packet. If the packet is transmitted one, this object represents the destination device of the packet.
 
@@ -1089,7 +1093,7 @@ Property      | Type    | Description
 `address`     | String  | IP address of the device.
 `eoj`         | Array   | A list of EOJ supported by the device. This property is available only in the discovery process.
 
-### <a name="Message-object"> `Message` object</a>
+### <a id="Message-object">`Message` object</a>
 
 The `Message` object represents the summary of the ECHONET Lite packet. This object is the most useful in the [`Response`](#Response-object) object for you.
 
@@ -1104,7 +1108,7 @@ Property      | Type    | Description
 `prop`        | Array   | A list of the [`Prop`](#Prop-object) object.
 `data`        | Object  | This object includes information which this module converted the value of `prop` object for you so that you can handle the packet easily. This property exists only in the `Response` objects derived from the [`getPropertyMaps()`](#getPropertyMaps-method) method and [`getPropertyValue()`](#getPropertyValue-method) method. See the descriptions for the methods for details.
 
-### <a name="Prop-object"> `Prop` object</a>
+### <a id="Prop-object">`Prop` object</a>
 
 The `Prop` object represents a set of the EPC and the EDT in the ECHONET Lite packet.
 
@@ -1118,7 +1122,7 @@ Property      | Type    | Description
 
 If the EPC is supported by this module, the EDT in the ECHONET Lite packet is parsed so that you can treat it easily, then the [`EDT`](#EDT-object) object is set as the value of the `edt` property. If the EPC is unknown to this module, the value of the `edt` property is null. In both cases, the `Prop` object has the `buffer` property, the value is a Buffer object representing the part of EDT in the ECHONET Lite packet. You can parse it by yourself even if the EPC is unknown to this module. See the section "[How to handle unknown EPCs](#How-to-handle-unknown-EPCs)" for details.
 
-### <a name="EDT-object"> `EDT` object</a>
+### <a id="EDT-object">`EDT` object</a>
 
 The `EDT` object represents the answer for your query from the targeted device. Though this object is just a hash object, the structure depends on the EPC which you requested.
 
@@ -1137,7 +1141,7 @@ If the EPC is `0xE7` for the low-voltage smart electric energy meter class (Clas
 See the section "[Supported EPCs](#Supported-EPCs)" for details.
 
 ---------------------------------------
-## <a name="Supported-EPCs"> Supported EPCs</a>
+## <a id="Supported-EPCs">Supported EPCs</a>
 
 This module supports the Classes specified in the ECHONET Lite specification as follows:
 
@@ -1158,7 +1162,7 @@ This module supports the Classes specified in the ECHONET Lite specification as 
 You can find the detailed information about each [`EDT`](#EDT-object) object in the document related to the class above.
 
 ---------------------------------------
-## <a name="Monitoring-ECHONET-Lite-packets"> Monitoring ECHONET Lite packets</a>
+## <a id="Monitoring-ECHONET-Lite-packets">Monitoring ECHONET Lite packets</a>
 
 In order to debug you scripts, You would monitor ECHONET packets in detail. The node-echonet-lite module provides you with formatted text as a result of packet analysis.
 
@@ -1352,7 +1356,7 @@ The sample code above will output the result like this if the language is set to
 ```
 
 ---------------------------------------
-## <a name="How-to-handle-unknown-EPCs"> How to handle unknown EPCs</a>
+## <a id="How-to-handle-unknown-EPCs">How to handle unknown EPCs</a>
 
 Even if the EPC you want to treat is not supported by the node-echonet-lite module, you can get the `Buffer` object representing the relevant EDT. Once you get the `Buffer` object, you can parse it by yourself according to [the APPENDIX of the ECHONET Lite specification](http://echonet.jp/spec_object_rf_en/).
 
@@ -1429,11 +1433,11 @@ function parseTempEdt(buf) {
   * Fixed a bug of the `setTimeout()` handling in the Wi-SUN mode.
 
 ---------------------------------------
-## <a name="License"> License</a>
+## <a id="License">License</a>
 
 The MIT License (MIT)
 
-Copyright 2016 Futomi Hatano
+Copyright (c) 2016 - 2017 Futomi Hatano
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to
