@@ -46,14 +46,15 @@ The node-echonet-lite supports the network layers as follows:
 	* This protocol stack is used as a communication line between a low-voltage smart electric energy meter and a home gateway (a.k.a. "HEMS gateway") in Japan. The communication line is as known as "Route-B".
 	* [NOTE] This module is unstable for this network protocol stack for now.
 
-The node-echonet-lite supports the two Wi-SUN USB dongle as a HEMS gateway for Wi-SUN Route-B:
+The node-echonet-lite supports the Wi-SUN USB dongles as a HEMS gateway for Wi-SUN Route-B as follows:
 
+* BP35C2, ROHM Semiconductor. [[English](http://www.rohm.com/web/global/products/-/product/BP35C2)] [[Japanese](http://www.rohm.co.jp/web/japan/products/-/product/BP35C2)]
 * BP35A1, ROHM Semiconductor. [[English](http://www.rohm.com/web/global/products/-/product/BP35A1)] [[Japanese](http://www.rohm.co.jp/web/japan/news-detail?news-title=2015-01-07_ad&defaultGroupId=false)]
 * RL7023 Stick-D/DSS, TESSERA TECHNOLOGY INC. [[Japanese](http://www.tessera.co.jp/rl7023stick-d_dss.html)]
 
-If you want to communicate with a smart electric energy meter, you have to get either of two Wi-SUN USB dongle above. Note that the two Wi-SUN USB dongle is available only in Japan.
+If you want to communicate with a smart electric energy meter, you have to get either of the Wi-SUN USB dongles above. Note that the Wi-SUN USB dongles are available only in Japan.
 
-Using the node-echonet-lite module, you have to know the basics of the ECHONET Lite specification. See the section "[ECHONET Lite Tutorial](#Tutorial)" for details.
+Before using the node-echonet-lite module, you have to know the basics of the ECHONET Lite specification. See the section "[ECHONET Lite Tutorial](#Tutorial)" for details.
 
 ## Dependencies
 - [Node.js](https://nodejs.org/en/) 4.4 +
@@ -69,6 +70,8 @@ $ npm install node-echonet-lite
 
 * [ECHONET Lite Tutorial](#Tutorial)
 * [Quick Start](#Quick-Start)
+  * [Home Air Conditioner](#Quick-Start-1)
+  * [Smart Electric Energy Meter](#Quick-Start-2)
 * [Operating suggestions](#Operating-suggestions)
 * [Constructor of the EchonetLite object](#Constructor)
 * [Methods](#Methods)
@@ -180,6 +183,8 @@ Even if the EPC is not supported by this module, you can obtain the Buffer objec
 
 This section shows how to discover a specific type of device, how to get a value of a specific property of the device, and how to set a value to the property of the device.
 
+### <a id="Quick-Start-1">Home Air Conditioner</a>
+
 The sample code below discovers a home air conditioner, then gets the current operation status (ON or OFF), finally turns on or off the home air conditioner.
 
 ```JavaScript
@@ -203,7 +208,8 @@ el.init((err) => {
 function discoverDevices() {
   // Start to discover Echonet Lite devices
   el.startDiscovery((err, res) => {
-    if(err) { // Error handling
+    // Error handling
+    if(err) {
       showErrorExit(err);
     }
     // Determine the type of the found device
@@ -213,10 +219,10 @@ function discoverDevices() {
     var group_code = eoj[0]; // Class group code
     var class_code = eoj[1]; // Class code
     if(group_code === 0x01 && class_code === 0x30) {
-      // This means that the found device belongs to the home air conditioner class
-      console.log('Found an air conditioner (' + address + ').');
       // Stop to discovery process
       el.stopDiscovery();
+      // This means that the found device belongs to the home air conditioner class
+      console.log('Found an air conditioner (' + address + ').');
       // Get the operation status
       getOperationStatus(address, eoj);
     }
@@ -225,8 +231,8 @@ function discoverDevices() {
 
 // Get the operation status
 function getOperationStatus(address, eoj) {
-  var epc = 0x80; // An property code which means operation status
-  el.getPropertyValue(address, eoj, 0x80, (err, res) => {
+  var epc = 0x80; // An property code which means the operation status
+  el.getPropertyValue(address, eoj, epc, (err, res) => {
     // this value is true if the air conditione is on
     var status = res['message']['data']['status'];
     var desc = (status ? 'on' : 'off');
@@ -244,7 +250,7 @@ function changePowerStatus(address, eoj, epc, status) {
     console.log('The air conditionaer was turned ' + desc + '.');
     el.close(() => {
       console.log('Closed.');
-			// This script terminates here.
+      // This script terminates here.
     });
   });
 }
@@ -264,6 +270,84 @@ The air conditioner is off.
 The air conditionaer was turned on.
 ```
 
+### <a id="Quick-Start-2">Smart Electric Energy Meter</a>
+
+```JavaScript
+// Load the node-echonet-lite module
+var EchonetLite = require('node-echonet-lite');
+
+// Create an EchonetLite object for Wi-SUN Route-B
+var el = new EchonetLite({
+  'type'   : 'wisunb',
+  'adapter': 'bp35c2',
+  'path'   : 'COM6',
+  'id'     : 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+  'pass'   : 'XXXXXXXXXXXX'
+});
+
+// Initialize the EchonetLite object
+el.init((err) => {
+  if(err) { // An error was occurred
+    showErrorExit(err);
+  } else { // Start to discover devices
+    discoverDevices();
+  }
+});
+
+// Start to discover devices
+function discoverDevices() {
+  // Start to discover a smart electric energy meter
+  // on Wi-SUN B-route using a Wi-SUN USB dongle
+  el.startDiscovery((err, res) => {
+    // Error handling
+    if(err) {
+      showErrorExit(err);
+    }
+    // Determine the type of the found device
+    var device = res['device'];
+    var address = device['address'];
+    var eoj = device['eoj'][0];
+    var group_code = eoj[0]; // Class group code
+    var class_code = eoj[1]; // Class code
+    if(group_code === 0x02 && class_code === 0x88) {
+      // Stop to discovery process
+      el.stopDiscovery();
+      // This means that the found device belongs to
+      // the low voltage smart electric energy meter class
+      console.log('Found a smart electric energy meter (' + address + ').');
+      // Get the Measured instantaneous electric energy 
+      getMeasuredValue(address, eoj);
+    }
+  });
+}
+
+// Get the measured values
+function getMeasuredValue(address, eoj) {
+  var epc = 0xE7; // An property code which means "Measured instantaneous electric energy"
+  el.getPropertyValue(address, eoj, epc, (err, res) => {
+    var energy = res['message']['data']['energy'];
+    console.log('Measured instantaneous electric energy is ' + energy + ' W.');
+    el.close(() => {
+      console.log('Closed.');
+      process.exit();
+    });
+  });
+}
+
+// Print an error then terminate the process of this script
+function showErrorExit(err) {
+  console.log('[ERROR] '+ err.toString());
+  process.exit();
+}
+```
+
+This sample code will output the result like this:
+
+```
+Found a smart electric energy meter (XXX0:0000:0000:0000:0XXX:XXXX:XXXX:XXXX).
+Measured instantaneous electric energy is 402 W.
+Closed.
+```
 ---------------------------------------
 ## <a name="Operating-suggestions"> Operating suggestions</a>
 
@@ -536,6 +620,8 @@ el.startDiscovery((err, res) => {
   }
 });
 ```
+
+If no ECHONET Lite device was found, more than one network adapter might exist on your host computer. When this method is called, the node-echonet-lite sends an UDP multicast packet to `224.0.23.0` in the LAN mode. If more than one network adapter exists on your host computer, the OS on your computer possibly would pass it to an unexpected network adapter. It is recommended to disable such network adapters.
 
 Be sure to call `stopDiscovery()` method if the targeted device was found.
 
@@ -1336,8 +1422,11 @@ function parseTempEdt(buf) {
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
 
-* v0.0.5 (2017-07-16)
-  * Fixed a bug of the `setTimeout()` handling in the wi-sun mode.
+* v0.1.0 (2017-07-17)
+  * The Wi-SUN USB dongle "ROHM BP35C2" ([English](http://www.rohm.com/web/global/products/-/product/BP35C2) / [Japanese](http://www.rohm.co.jp/web/japan/products/-/product/BP35C2)) is now supported.
+  * Fixed a bug of the active scan in the Wi-SUN mode.
+  * Fixed a bug of the packet parser for the Wi-SUN USB dongle "RL7023 Stick-D/DSS".
+  * Fixed a bug of the `setTimeout()` handling in the Wi-SUN mode.
 
 ---------------------------------------
 ## <a name="License"> License</a>
