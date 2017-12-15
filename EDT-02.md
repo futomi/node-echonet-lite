@@ -7,6 +7,7 @@ The `EDT` object specification for the node-echonet-lite
 The node-echonet-lite module support the classes in this class group as follows:
 
 * [Low-voltage smart electric energy meter class (Class code: `0x88`)](#class-88)
+* [General lighting class (Class code: `0x90`)](#class-90)
 
 ---------------------------------------
 ### <a name="class-88">Low-voltage smart electric energy meter class</a>
@@ -189,3 +190,219 @@ Property      | Type    | Description
 The value of the `number` property must be an integer in the range of 1 to 12.
 
 When you read this EDT object, if both the `date` and the `time` is an empty string and the value of the `number` property is 1, it means that the date and time for this EDT have not been set yet. If you want to create such an EDT object, specify an empty hash object (i.e. `{}`) as an EDT object.
+
+---------------------------------------
+### <a name="class-90">General lighting class</a>
+* Class group code: `0x02`
+* Class code: `0x90`
+
+#### Operation status
+* EPC: `0x80`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`status`      | Boolean | This property indicates the ON/OFF status. If the status is "ON", this value is `true`. Otherwise, if it is "OFF", this value is `false`.
+
+#### Illuminance level
+* EPC: `0xB0`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`level`       | Number  | This property indicates illuminance level in %. When setting, this value must be an integer between 0 and 100.
+
+#### Light color setting
+* EPC: `0xB1`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`color`       | Number  | This property indicates the color setting. 
+
+The `color` must be `0x40`, `0x41`, `0x42`, `0x43`, or `0x44`. The code map is as follows. Each code is shown as hexadecimal representation:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`0x40` | Other                   | その他
+`0x41` | Incandescent lamp color | 電球色
+`0x42` | White                   | 白色
+`0x43` | Daylight white          | 昼白色
+`0x44` | Daylight color          | 昼光色
+
+#### Illuminance level step setting
+* EPC: `0xB2`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`step`        | Number  | Used to specify the illuminance level in terms of steps and acquire the current setting. When settig, this value must be an integer between 0x01 and the maximum specifiable illuminance level value (dark to bright).
+
+#### Light color step setting
+* EPC: `0xB3`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`step`        | Number  | Used to specify the light color in terms of steps and acquire the current setting. When settig, this value must be an integer between 0x01 and the maximum specifiable light color value (incandescent lamp color to white).
+
+#### Maximum specifiable values
+* EPC: `0xB4`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`illuminance` | Number  | The maximum specifiable illuminance level value of main lighting.
+`color`       | Number  | The maxinum specifiable light color value of main lighting.
+
+#### Maximum value of settable level for night lighting
+* EPC: `0xB5`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`illuminance` | Number  | The maximum values of illuminance for night lighting.
+`color`       | Number  | light color settable levels for night lighting.
+
+#### Lighting mode setting
+* EPC: `0xB6`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`mode`        | Number  | This property indicates the lighting mode setting. 
+
+The `mode` must be `0x41`, `0x42`, `0x43`, or `0x45`. The code map is as follows. Each code is shown as hexadecimal representation:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`0x41` | Auto                    | 自動
+`0x42` | Main lighting           | 通常灯
+`0x43` | Night lighting          | 常夜灯
+`0x45` | Color lighting          | カラー灯
+
+#### Illuminance level setting for main lighting
+* EPC: `0xB7`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`level`       | Number  | This property indicates the illuminance level of main lighting in %. When setting, this value must be an integer between 0 and 100.
+
+#### Illuminance level step setting for main lighting
+* EPC: `0xB8`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`step`        | Number  | Used to set the illuminance level by the number of steps for main lighting and to acquire the current setting. When settig, this value must be an integer between 0x01 and the maximum value of settable illuminance level(dark to bright).
+
+#### Illuminance level setting for night lighting
+* EPC: `0xB9`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`level`       | Number  | This property indicates the illuminance level of night lighting in %. When setting, this value must be an integer between 0 and 100.
+
+#### Illuminance level step setting for night lighting
+* EPC: `0xBA`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`step`        | Number  | Used to set the illuminance level by the number of steps for night lighting and to acquire the current setting status. When settig, this value must be an integer between 0x01 and the maximum value of settable illuminance level (dark to bright).
+
+#### Light color setting for main lighting
+* EPC: `0xBB`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`color`       | Number  | This property is used to set the light color for main lighting.
+
+The `mode` must be `0x40`, `0x41`, `0x42`, `0x43`, or `0x44`. The code map is as follows. Each code is shown as hexadecimal representation:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`0x40` | Other                   | その他
+`0x41` | Incandescent lamp color | 電球色
+`0x42` | White                   | 白色
+`0x43` | Daylight white          | 昼白色
+`0x44` | Daylight color          | 昼光色
+
+#### Light color level step setting for main lighting 
+* EPC: `0xBC`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`step`        | Number  | Used to set the light color level by the number of steps for main lighting and to acquire the current setting. When settig, this value must be an integer between 0x01 and the maximum value of settable light color level (incandescent lamp color to white).
+
+#### Light color setting for night lighting
+* EPC: `0xBD`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`color`       | Number  | This property is used to set the light color for night lighting.
+
+The `mode` must be `0x40`, `0x41`, `0x42`, `0x43`, or `0x44`. The code map is as follows. Each code is shown as hexadecimal representation:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`0x40` | Other                   | その他
+`0x41` | Incandescent lamp color | 電球色
+`0x42` | White                   | 白色
+`0x43` | Daylight white          | 昼白色
+`0x44` | Daylight color          | 昼光色
+
+#### Light color level step setting for night lighting
+* EPC: `0xBE`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`step`        | Number  | Used to set the light color level by the number of steps for night lighting and to acquire the current setting.. When settig, this value must be an integer between 0x01 and the maximum value of settable light color level (incandescent lamp color to white).
+
+#### Lighting mode status in auto mode
+* EPC: `0xBF`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`mode`        | Number  | This property is Used to acquire the current lighting mode in auto mode.
+
+The `mode` must be `0x42`, `0x43`, `0x44`, or `0x45`. The code map is as follows. Each code is shown as hexadecimal representation:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`0x42` | Main lighting           | 通常灯
+`0x43` | Night lighting          | 常夜灯
+`0x44` | Off                     | 消灯
+`0x45` | Color lighting          | カラー灯
+
+#### RGB setting for color lighting
+* EPC: `0xC0`
+
+This property is used to set the RGB value for color lighting and to acquire the current setting.
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`r`           | Number  | R compornent. When setting, this value must be an integer between 0 and 255.
+`g`           | Number  | G compornent. When setting, this value must be an integer between 0 and 255.
+`b`           | Number  | B compornent. When setting, this value must be an integer between 0 and 255.
+
+#### ON timer reservation setting
+* EPC: `0x90`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`set`         | Boolean | This property indicates the ON/OFF status of the ON timer reservation setting. If the status is "ON", this value is `true`. Otherwise, if it is "OFF", this value is `false`.
+
+#### ON timer setting
+* EPC: `0x91`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`h`           | Number  | Hour. When setting, this value must be an integer between 0 and 23.
+`m`           | Number  | Minute. When setting, this value must be an integer between 0 and 59.
+
+#### OFF timer reservation setting
+* EPC: `0x94`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`set`         | Boolean | This property indicates the ON/OFF status of the OFF timer reservation setting. If the status is "ON", this value is `true`. Otherwise, if it is "OFF", this value is `false`.
+
+#### OFF timer setting
+* EPC: `0x95`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`h`           | Number  | Hour. When setting, this value must be an integer between 0 and 23.
+`m`           | Number  | Minute. When setting, this value must be an integer between 0 and 59.
+

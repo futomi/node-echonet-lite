@@ -26,11 +26,13 @@ The ECHONET Lite specification defines a lot of classes (profiles of devices), t
 * Sensor-related Device Class Group (Class Group code: `0x00`)
 	* Temperature sensor class (Class code: `0x11`)
 	* Humidity sensor class (Class code: `0x12`)
+	* Electric energy sensor class (Class code: `0x22`)
 	* Air pressure sensor class (Class code: `0x2D`)
 * Air Conditioner-related Device Class Group (Class Group code: `0x01`)
 	* Home air conditioner class (Class code: `0x30`)
 * Housing/Facilities-related Device Class Group (Class Group code: `0x02`)
 	* Low-voltage smart electric energy meter class (Class code: `0x88`)
+	* General lighting class (Class code: `0x90`)
 * Profile class Group (Class Group Code: `0x0E`)
 	* Node Profile Class (Class code: `0x0F`)
 
@@ -1150,11 +1152,13 @@ This module supports the Classes specified in the ECHONET Lite specification as 
 * [Sensor-related Device Class Group (Class Group code: `0x00`)](EDT-00.md)
 	* [Temperature sensor class (Class code: `0x11`)](EDT-00.md#class-11)
 	* [Humidity sensor class (Class code: `0x12`)](EDT-00.md#class-12)
+	* [Electric energy sensor class (Class code: `0x22`)](EDT-00.md#class-22)
 	* [Air pressure sensor class (Class code: `0x2D`)](EDT-00.md#class-2D)
 * [Air Conditioner-related Device Class Group (Class Group code: `0x01`)](EDT-01.md)
 	* [Home air conditioner class (Class code: `0x30`)](EDT-01.md#class-30)
 * [Housing/Facilities-related Device Class Group (Class Group code: `0x02`)](EDT-02.md)
 	* [Low-voltage smart electric energy meter class (Class code: `0x88`)](EDT-02.md#class-88)
+	* [General lighting class (Class code: `0x90`)](EDT-02.md#class-90)
 * [Profile class Group (Class Group Code: `0x0E`)](EDT-0E.md)
 	* [Profile Object Super Class (Class code: N/A)](EDT-0E.md#class-00)
 	* [Node Profile Class (Class code: `0xF0`)](EDT-0E.md#class-F0)
@@ -1425,6 +1429,12 @@ function parseTempEdt(buf) {
 
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
+
+* v0.2.0 (2017-12-15)
+  * Added the EPC parsers as follows:
+    * [Electric energy sensor class (Class code: 00-22)](EDT-00.md#class-22)
+    * [General lighting class (Class code: 02-90)](EDT-02.md#class-90)
+  * Improved the discovery processs
 
 * v0.1.0 (2017-07-17)
   * The Wi-SUN USB dongle "ROHM BP35C2" ([English](http://www.rohm.com/web/global/products/-/product/BP35C2) / [Japanese](http://www.rohm.co.jp/web/japan/products/-/product/BP35C2)) is now supported.
