@@ -918,22 +918,47 @@ el.init((err) => {
   if(err) {
     console.log('[ERROR] '+ err.toString());
   } else {
-    el.startDiscovery((err, res) => {
-      el.stopDiscovery();
-      if(err) {
-        console.log('[ERROR] '+ err.toString());
-        process.exit();
-      } else {
-        getPropertyMaps(res['device']);
-      }
-    });
-    el.on('notify', (res) => {
-      console.log('[NOTIFY] ---------------------------------------');
-      console.log(JSON.stringify(res['message'], null, '  '));
-      console.log('');
-    });
+     el.on('notify', (res) => {
+       console.log('[NOTIFY] From: ' + res['device']['address'] + ' --------------------------');
+       console.log(JSON.stringify(res['message'], null, '  '));
+       console.log('');
+     });
   }
 });
+```
+
+When a notification packet is received, the code above will show the result as follows:
+
+```JavaScript
+[NOTIFY] From: 192.168.11.17 --------------------------
+{
+  "tid": 50,
+  "seoj": [
+    1,
+    48,
+    1
+  ],
+  "deoj": [
+    14,
+    240,
+    1
+  ],
+  "esv": "INF",
+  "prop": [
+    {
+      "epc": 128,
+      "edt": {
+        "status": false
+      },
+      "buffer": {
+        "type": "Buffer",
+        "data": [
+          49
+        ]
+      }
+    }
+  ]
+}
 ```
 
 An [`Response`](#Response-object) object is passed to the callback function as the 1st argument.
@@ -1430,6 +1455,9 @@ function parseTempEdt(buf) {
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
 
+* v0.2.1 (2018-04-01)
+  * Improved the device discovery. The previous version could not discover some ECHONET Lite devices if the `startDiscovery()` method was called more than once.
+
 * v0.2.0 (2017-12-15)
   * Added the EPC parsers as follows:
     * [Electric energy sensor class (Class code: 00-22)](EDT-00.md#class-22)
@@ -1447,7 +1475,7 @@ function parseTempEdt(buf) {
 
 The MIT License (MIT)
 
-Copyright (c) 2016 - 2017 Futomi Hatano
+Copyright (c) 2016 - 2018 Futomi Hatano
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to
