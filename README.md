@@ -432,6 +432,15 @@ Property | Type   | Required | Description
 `type`   | String | required | The type of the network layer (protocol stack). The value must be either `lan` or `wisunb`. The value `lan` means UDP/IPv4 on LAN (Wi-Fi or Ethernet). The value `wisunb` means UDP/IPv6 on Wi-SUN.
 `lang`   | String | optional | The language code. The value must be either `en` (English) or `ja` (Japanese). This module can report analysis results of incoming ECHONET Lite packets using the specified language. The default value is `en`
 
+If you set `lan` to `type` property, the additional properties are required as follows:
+
+Property | Type   | Required | Description
+:--------|:-------|:---------|:-----------
+`netif`  | String | optional | Specify the multicast interface as an IPv4 address.
+
+If the `netif` is not specified, all available network interfaces will be joined to a multicast group. If you want to use one network interface, set the `netif` parameter to the IPv4 address representing the network interface you want to use.
+
+
 If you set `wisunb` to `type` property, the additional properties are required as follows:
 
 Property | Type   | Required | Description
@@ -1454,6 +1463,10 @@ function parseTempEdt(buf) {
 
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
+
+* v0.2.2 (2018-04-25)
+  * Improved the device discovery. In this version, all available network interfaces are joined to a multicast group, so that all ECHONET Lite devices in the local network are sure to be discovered.
+  * Implemented the parameter `netif` for specifying a network interface in the `EchonetLite` constructor.
 
 * v0.2.1 (2018-04-01)
   * Improved the device discovery. The previous version could not discover some ECHONET Lite devices if the `startDiscovery()` method was called more than once.
