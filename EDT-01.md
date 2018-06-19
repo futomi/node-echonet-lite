@@ -211,8 +211,7 @@ The value of the `level` must be an integer in the range of 0 to 8.
 
 Property      | Type    | Description
 :-------------|:--------|:-----------
-`mode`        | Number  | This property indicates whether or not to use
-the automatic air flow direction control and the plane(s) (vertical and/or horizontal) in which the automatic air flow direction control function is to be used function as a code.
+`mode`        | Number  | This property indicates whether or not to use the automatic air flow direction control and the plane(s) (vertical and/or horizontal) in which the automatic air flow direction control function is to be used function as a code.
 `desc`        | String  | The description of the code.
 
 The code map is as follows. Each code is shown as decimal representation:
@@ -344,8 +343,7 @@ If you want to create an ECHONET Lite packet to send, the `desc` property is not
 
 Property      | Type    | Description
 :-------------|:--------|:-----------
-`mode`        | Boolean | This property indicates whether or not to use
-the humidifier function. If the humidifier function is used, this value is `true`. Otherwise, it is `false`.
+`mode`        | Boolean | This property indicates whether or not to use the humidifier function. If the humidifier function is used, this value is `true`. Otherwise, it is `false`.
 
 #### Ventilation air flow rate setting
 * EPC: `0xC2`
@@ -379,12 +377,10 @@ Property      | Type    | Description
 Property      | Type    | Description
 :-------------|:--------|:-----------
 `dust_mode`   | Boolean | This property indicates whether or not to use the electrical dust collection-based air purifier function. If it is used, this value is `true`. Otherwise, this value is `false`.
-`dust_state`  | Boolean | This property indicates whether or not to use the function to
-automatically control the degree of the electrical dust collection-based air purification. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
+`dust_state`  | Boolean | This property indicates whether or not to use the function to automatically control the degree of the electrical dust collection-based air purification. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
 `dust_level`  | Number  | This property indicates the electrical dust collection-based air purification level as an integer in the range of 0 to 7.
 `ion_mode`    | Boolean | This property indicates whether or not to use the cluster ion-based air purifier function. If it is used, this value is `true`. Otherwise, this value is `false`.
-`ion_state`   | Boolean | This property indicates whether or not to use the function to
-automatically control the degree of the cluster ion-based air purification. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
+`ion_state`   | Boolean | This property indicates whether or not to use the function to automatically control the degree of the cluster ion-based air purification. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
 `ion_level`   | Number  | This property indicates the cluster ion-based air purification level as an integer in the range of 0 to 7.
 
 #### Mounted air refresh method
@@ -401,12 +397,10 @@ Property      | Type    | Description
 Property        | Type    | Description
 :---------------|:--------|:-----------
 `minus_mode`    | Boolean | This property indicates whether or not to use the minus ion-based air refresher function. If it is used, this value is `true`. Otherwise, this value is `false`.
-`minus_state`   | Boolean | This property indicates whether or not to use the function to
-automatically control the degree of the minus ion-based air refresher. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
+`minus_state`   | Boolean | This property indicates whether or not to use the function to automatically control the degree of the minus ion-based air refresher. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
 `minus_level`   | Number  | This property indicates the minus ion-based air refreshing level as an integer in the range of 0 to 7.
 `cluster_mode`  | Boolean | This property indicates whether or not to use the cluster ion-based air refresher function. If it is used, this value is `true`. Otherwise, this value is `false`.
-`cluster_state` | Boolean | This property indicates whether or not to use the function to
-automatically control the degree of the cluster ion-based air refresher. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
+`cluster_state` | Boolean | This property indicates whether or not to use the function to automatically control the degree of the cluster ion-based air refresher. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
 `cluster_level` | Number  | This property indicates the cluster ion-based air refreshing level as an integer in the range of 0 to 7.
 
 #### Mounted self-cleaning method
@@ -423,12 +417,10 @@ Property      | Type    | Description
 Property        | Type    | Description
 :---------------|:--------|:-----------
 `ozone_mode`    | Boolean | This property indicates whether or not to use the ozone-based self-cleaning function. If it is used, this value is `true`. Otherwise, this value is `false`.
-`ozone_state`   | Boolean | This property indicates whether or not to use the function to
-automatically control the degree of the ozone-based self-cleaning. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
+`ozone_state`   | Boolean | This property indicates whether or not to use the function to automatically control the degree of the ozone-based self-cleaning. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
 `ozone_level`   | Number  | This property indicates the ozone-based self-cleaning level as an integer in the range of 0 to 7.
 `drying_mode`   | Boolean | This property indicates whether or not to use the ozone-based self-cleaning function. If it is used, this value is `true`. Otherwise, this value is `false`.
-`drying_state`  | Boolean | This property indicates whether or not to use the function to
-automatically control the degree of the drying-based self-cleaning. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
+`drying_state`  | Boolean | This property indicates whether or not to use the function to automatically control the degree of the drying-based self-cleaning. If it is automatic, this value is `true`. If it is non-automatic, this value is `false`.
 `drying_level`  | Number  | This property indicates the drying-based self-cleaning level as an integer in the range of 0 to 7.
 
 #### Special function setting
