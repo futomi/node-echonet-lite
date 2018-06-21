@@ -1464,6 +1464,9 @@ function parseTempEdt(buf) {
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
 
+* v0.2.3 (2018-06-21)
+  * Rewrote the deprecated old-fashioned codes related to the [`Buffer`](https://nodejs.org/api/buffer.html) to the new style. Now no warning message will be shown on the shell using node v10.
+
 * v0.2.2 (2018-04-25)
   * Improved the device discovery. In this version, all available network interfaces are joined to a multicast group, so that all ECHONET Lite devices in the local network are sure to be discovered.
   * Implemented the parameter `netif` for specifying a network interface in the `EchonetLite` constructor.
