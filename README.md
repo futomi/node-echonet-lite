@@ -24,17 +24,20 @@ The node-echonet-lite mainly has functionalities as follows:
 The ECHONET Lite specification defines a lot of classes (profiles of devices), the node-echonet-lite currently supports some classes as follows:
 
 * Sensor-related Device Class Group (Class Group code: `0x00`)
-	* Temperature sensor class (Class code: `0x11`)
-	* Humidity sensor class (Class code: `0x12`)
-	* Electric energy sensor class (Class code: `0x22`)
-	* Air pressure sensor class (Class code: `0x2D`)
+  * Temperature sensor class (Class code: `0x11`)
+  * Humidity sensor class (Class code: `0x12`)
+  * Electric energy sensor class (Class code: `0x22`)
+  * Air pressure sensor class (Class code: `0x2D`)
 * Air Conditioner-related Device Class Group (Class Group code: `0x01`)
-	* Home air conditioner class (Class code: `0x30`)
+  * Home air conditioner class (Class code: `0x30`)
+  * Air cleaner class (Class code: `0x35`)
 * Housing/Facilities-related Device Class Group (Class Group code: `0x02`)
-	* Low-voltage smart electric energy meter class (Class code: `0x88`)
-	* General lighting class (Class code: `0x90`)
+  * Electrically operated blind/shade class (Class code: `0x60`)
+  * Electric lock class (Class code: `0x6F`)
+  * Low-voltage smart electric energy meter class (Class code: `0x88`)
+  * General lighting class (Class code: `0x90`)
 * Profile class Group (Class Group Code: `0x0E`)
-	* Node Profile Class (Class code: `0x0F`)
+  * Node Profile Class (Class code: `0x0F`)
 
 Besides the Device Object Super Class is supported as well, which is a base class inherited by all other classes. See the section "[Supported EPCs](#Supported-EPCs)" for details.
 
@@ -1182,20 +1185,23 @@ See the section "[Supported EPCs](#Supported-EPCs)" for details.
 This module supports the Classes specified in the ECHONET Lite specification as follows:
 
 * [Super Class Group (Class Group code: N/A)](EDT-FF.md)
-	* [Device Object Super Class (Class code: N/A)](EDT-FF.md#class-00)
+  * [Device Object Super Class (Class code: N/A)](EDT-FF.md#class-00)
 * [Sensor-related Device Class Group (Class Group code: `0x00`)](EDT-00.md)
-	* [Temperature sensor class (Class code: `0x11`)](EDT-00.md#class-11)
-	* [Humidity sensor class (Class code: `0x12`)](EDT-00.md#class-12)
-	* [Electric energy sensor class (Class code: `0x22`)](EDT-00.md#class-22)
-	* [Air pressure sensor class (Class code: `0x2D`)](EDT-00.md#class-2D)
+  * [Temperature sensor class (Class code: `0x11`)](EDT-00.md#class-11)
+  * [Humidity sensor class (Class code: `0x12`)](EDT-00.md#class-12)
+  * [Electric energy sensor class (Class code: `0x22`)](EDT-00.md#class-22)
+  * [Air pressure sensor class (Class code: `0x2D`)](EDT-00.md#class-2D)
 * [Air Conditioner-related Device Class Group (Class Group code: `0x01`)](EDT-01.md)
-	* [Home air conditioner class (Class code: `0x30`)](EDT-01.md#class-30)
+  * [Home air conditioner class (Class code: `0x30`)](EDT-01.md#class-30)
+  * [Air cleaner class (Class code: `0x35`)](EDT-01.md#class-35)
 * [Housing/Facilities-related Device Class Group (Class Group code: `0x02`)](EDT-02.md)
-	* [Low-voltage smart electric energy meter class (Class code: `0x88`)](EDT-02.md#class-88)
-	* [General lighting class (Class code: `0x90`)](EDT-02.md#class-90)
+  * [Electrically operated blind/shade class (Class code: `0x60`)](EDT-02.md#class-60)
+  * [Electric lock class (Class code: `0x6F`)](EDT-02.md#class-6F)
+  * [Low-voltage smart electric energy meter class (Class code: `0x88`)](EDT-02.md#class-88)
+  * [General lighting class (Class code: `0x90`)](EDT-02.md#class-90)
 * [Profile class Group (Class Group Code: `0x0E`)](EDT-0E.md)
-	* [Profile Object Super Class (Class code: N/A)](EDT-0E.md#class-00)
-	* [Node Profile Class (Class code: `0xF0`)](EDT-0E.md#class-F0)
+  * [Profile Object Super Class (Class code: N/A)](EDT-0E.md#class-00)
+  * [Node Profile Class (Class code: `0xF0`)](EDT-0E.md#class-F0)
 
 You can find the detailed information about each [`EDT`](#EDT-object) object in the document related to the class above.
 
@@ -1463,6 +1469,12 @@ function parseTempEdt(buf) {
 
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
+
+* v0.3.0 (2018-06-24)
+  * Added the EPC parsers as follows:
+    * [Air cleaner class (Class code: `0x35`)](EDT-01.md#class-35)
+    * [Electrically operated blind/shade class (Class code: `0x60`)](EDT-02.md#class-60)
+    * [Electric lock class (Class code: `0x6F`)](EDT-02.md#class-6F)
 
 * v0.2.3 (2018-06-21)
   * Rewrote the deprecated old-fashioned codes related to the [`Buffer`](https://nodejs.org/api/buffer.html) to the new style. Now no warning message will be shown on the shell using node v10.

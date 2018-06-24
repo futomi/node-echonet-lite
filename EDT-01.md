@@ -7,6 +7,7 @@ The `EDT` object specification for the node-echonet-lite
 The node-echonet-lite module support the classes in this class group as follows:
 
 * [Home air conditioner class (Class code: `0x30`)](#class-30)
+* [Air cleaner class (Class code: `0x35`)](#class-35)
 
 ---------------------------------------
 ### <a name="class-30">Home air conditioner class</a>
@@ -558,3 +559,54 @@ Property      | Type    | Description
 Property      | Type    | Description
 :-------------|:--------|:-----------
 `time`        | String  | This property indicates the relative time for the relative time-based reservation function in the "HHH:MM" format in the range of "00:00" to 255:59".
+
+
+---------------------------------------
+### <a name="class-35">Air cleaner class</a>
+* Class group code: `0x01`
+* Class code: `0x35`
+
+#### Operation status
+* EPC: `0x80`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`status`      | Boolean | This property indicates the ON/OFF status. If the ON/OFF status is ON, this value is `true`, otherwise `false`.
+
+#### Filter change notice
+* EPC: `0xE1`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`notice`      | Boolean | Filter change time notice found/not found. If found, this value is `true`, otherwise `false`.
+
+#### Air flow rate setting
+* EPC: `0xA0`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`level`       | Number  | This property indicates the air flow rate as a number in the range of 1 to 8. If this value is 0, it means that the function to automatically control the air flow rate is used.
+
+The value of the `level` must be an integer in the range of 0 to 8.
+
+#### Smoke (cigarette) detection status
+* EPC: `0xC1`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`smoke`       | Boolean | This property indicates smoke (cigarette) detection status. If found, this value is `true`, otherwise `false`.
+
+#### Optical catalyst operation setting
+* EPC: `0xC2`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`catalyst`    | Boolean | This property indicates the Optical catalyst ON/OFF status. If the ON/OFF status is ON, this value is `true`, otherwise `false`.
+
+#### Air pollution detection status
+* EPC: `0xC0`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`pollution`   | Boolean | This property indicates air pollution detection status. If detected, this value is `true`, otherwise `false`.
+

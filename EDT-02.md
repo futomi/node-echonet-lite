@@ -6,8 +6,308 @@ The `EDT` object specification for the node-echonet-lite
 
 The node-echonet-lite module support the classes in this class group as follows:
 
+* [Electrically operated blind/shade class (Class code: `0x60`)](#class-60)
+* [Electric lock class (Class code: `0x6F`)](#class-6F)
 * [Low-voltage smart electric energy meter class (Class code: `0x88`)](#class-88)
 * [General lighting class (Class code: `0x90`)](#class-90)
+
+
+---------------------------------------
+### <a name="class-60">Electrically operated blind/shade class</a>
+* Class group code: `0x02`
+* Class code: `0x60`
+
+#### Operation status
+* EPC: `0x80`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`status`      | Boolean | This property indicates the ON/OFF status. If the status is "ON", this value is `true`. Otherwise, if it is "OFF", this value is `false`.
+
+#### Fault description (Recoverable faults)
+* EPC: `0x89`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`code`        | Number  | The code of a recoverable fault.
+`desc`        | Number  | The description of the fauld.
+
+The `code` must be `0`, `4`, `5`, `6`, or `7`. The code map is as follows:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`0`    | No fault                | 異常無し
+`4`    | Obstacle caught         | 障害物挟込み
+`5`    | Recovery from outage    | 停電復帰
+`6`    | Time out                | タイムアウト
+`7`    | Battery low             | 電池残量低下
+
+#### Timer operation setting
+* EPC: `0x90`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`timer`       | Boolean | This property indicates the Timer operation setting. If the setting is "ON", this value is `true`. Otherwise, `false`.
+
+#### Wind detection status
+* EPC: `0xC2`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`wind`        | Boolean | This property indicates whether wind is detected. If detected, this value is `true`. Otherwise, `false`.
+
+#### Sunlight detection status
+* EPC: `0xC3`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`sunlight`    | Boolean | This property indicates whether sunlight is detected. If detected, this value is `true`. Otherwise, `false`.
+
+#### Opening (extension) speed setting
+* EPC: `0xD0`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`speed`       | Number  | This property specifies the normal opening (extension) speed by levels.
+
+The `speed` must be `1`, `2`, or `3`. The code map is as follows:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`1`    | Low                     | 低
+`2`    | Medium                  | 中
+`3`    | High                    | 高
+
+#### Closing (retraction) speed setting
+* EPC: `0xD1`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`speed`       | Number  | This property specifies the normal closing (retraction) speed by three levels.
+
+The `speed` must be `1`, `2`, or `3`. The code map is as follows:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`1`    | Low                     | 低
+`2`    | Medium                  | 中
+`3`    | High                    | 高
+
+#### Operation time
+* EPC: `0xD2`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`time`        | Number  | This property specifies the operation time in seconds. The value must be an integer in the range of `0` to `253`.
+
+#### Automatic operation setting
+* EPC: `0xD4`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`auto`        | Boolean | This property specifies automatic operation setting. If the status is "ON", this value is `true`. Otherwise, `false`.
+
+#### Open/close (extension/retraction) setting
+* EPC: `0xE0`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`state`       | Number  | This property specifies the Open/close (extension/retraction) setting.
+
+The `state` must be `1`, `2`, or `3`. The code map is as follows:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`1`    | Open                    | 開
+`2`    | Close                   | 閉
+`3`    | Stop                    | 停止
+
+#### Degree-of-opening level
+* EPC: `0xE1`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`level`       | Number  | This property specifies the degree-of-opening level in %, and to acquire the current setting. The value must be an integer in the range of `0` to `100`.
+
+#### Shade angle setting
+* EPC: `0xE2`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`angle`       | Number  | This property specifies the shade angle value in deg, and to acquire the current setting. The value must be an integer in the range of `0` to `180`.
+
+#### Open/close (extension/retraction) speed
+* EPC: `0xE3`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`speed`       | Number  | This property specifies the open/close (extension/retraction) speed, and to acquire the current setting.
+
+The `speed` must be `1`, `2`, or `3`. The code map is as follows:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`1`    | Low                     | 低
+`2`    | Medium                  | 中
+`3`    | High                    | 高
+
+#### Electric lock setting
+* EPC: `0xE5`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`lock`        | Boolean | This property indicates lock or unlock of an electric lock. If locked, this value is `true`. Otherwise, `false`.
+
+#### Operation status
+* EPC: `0xE8`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`status`      | Boolean | This property indicates whether remote operation is permitted or prohibited. If permitted, this value is `true`. Otherwise, `false`.
+
+#### Selective opening (extension) operation setting
+* EPC: `0xE9`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`mode`        | Number  | This property sets a stop at a specified value.
+
+The `mode` must be `1`, `2`, `3`, or `4`. The code map is as follows:
+
+Code   | Description (English)               | Description (Japanese)
+:------|:------------------------------------|:----------------------
+`1`    | Degree-of-setting position: Open    | 開度レベル設定位置開
+`2`    | Operation time setting value: Open  | 動作時間設定値開
+`3`    | Operation time setting value: Close | 動作時間設定値閉
+`4`    | Local setting position              | ローカル設定位置
+
+#### Open/closed (extended/retracted) status
+* EPC: `0xEA`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`status`      | Number  | This property indicates the open/closed status.
+
+The `status` must be `1`, `2`, `3`, `4`, or `5`. The code map is as follows:
+
+Code   | Description (English) | Description (Japanese)
+:------|:----------------------|:----------------------
+`1`    | Fully open            | 全開
+`2`    | Fully closed          | 全閉
+`3`    | Open                  | 開動作中
+`4`    | Closed                | 閉動作中
+`5`    | Stopped halfway       | 途中停止
+
+#### One-time opening (extension) speed setting
+* EPC: `0xEE`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`speed`       | Number  | This property specifies the speed of single opening operation by three levels.
+
+The `speed` must be `1`, `2`, `3`, or `5`. The code map is as follows:
+
+Code   | Description (English) | Description (Japanese)
+:------|:----------------------|:----------------------
+`1`    | Low                   | 低
+`2`    | Medium                | 中
+`3`    | High                  | 高
+`4`    | None                  | 無し
+
+#### One-time closing (retraction) speed setting
+* EPC: `0xEF`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`speed`       | Number  | This property specifies the speed of single closing operation by three levels.
+
+The `speed` must be `1`, `2`, `3`, or `5`. The code map is as follows:
+
+Code   | Description (English) | Description (Japanese)
+:------|:----------------------|:----------------------
+`1`    | Low                   | 低
+`2`    | Medium                | 中
+`3`    | High                  | 高
+`4`    | None                  | 無し
+
+
+---------------------------------------
+### <a name="class-6F">Electric lock class</a>
+* Class group code: `0x02`
+* Class code: `0x6F`
+
+#### Operation status
+* EPC: `0x80`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`status`      | Boolean | This property indicates the ON/OFF status. If the status is "ON", this value is `true`. Otherwise, if it is "OFF", this value is `false`.
+
+#### Lock setting 1
+* EPC: `0xE0`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`lock`        | Boolean | Lock/unlock of main electric lock. If locked, this value is `true`. Otherwise, `false`.
+
+#### Lock setting 2
+* EPC: `0xE1`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`lock`        | Boolean | Lock/unlock of sub electric lock. If locked, this value is `true`. Otherwise, `false`.
+
+#### Lock status of door guard
+* EPC: `0xE2`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`lock`        | Boolean | Lock/unlock of door guard. If locked, this value is `true`. Otherwise, `false`.
+
+#### Door open/close status
+* EPC: `0xE3`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`open`        | Boolean | Open/close status of door. If opened, this value is `true`. Otherwise, `false`.
+
+#### Occupant/non-occupant status
+* EPC: `0xE4`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`occupant`    | Boolean | Occupant/non-occupant status of persons. If occupant, this value is `true`. Otherwise, `false`.
+
+#### Alarm status
+* EPC: `0xE5`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`alarm`       | Number  | Alarm status of electric lock.
+
+The `alarm` must be `0`, `1`, `2`, `3`, or `4`. The code map is as follows:
+
+Code   | Description (English)   | Description (Japanese)
+:------|:------------------------|:----------------------
+`0`    | Normal (no alarm)       | 通常状態（警報なし）
+`1`    | Break open              | こじ開け
+`2`    | Door open               | 扉開放
+`3`    | Manual unlocked         | 手動解錠
+`4`    | Tampered                | タンパ
+
+#### Auto lock mode setting
+* EPC: `0xE6`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`autoLock`    | Boolean | ON/OFF of auto lock mode. `true` means ON, `false` means OFF.
+
+#### Battery level
+* EPC: `0xE7`
+
+Property      | Type    | Description
+:-------------|:--------|:-----------
+`battery`     | Boolean | This property indicates the battery level to get the status of a battery level lower and in need of replacement. Note that this value does not mean the battery level itself. It just means whether the battery has to be replaced or not. If the battery has to be replaced, this value is `true`. Otherwise, `false`.
 
 ---------------------------------------
 ### <a name="class-88">Low-voltage smart electric energy meter class</a>
