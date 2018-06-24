@@ -1472,9 +1472,9 @@ function parseTempEdt(buf) {
 
 * v0.3.0 (2018-06-24)
   * Added the EPC parsers as follows:
-    * [Air cleaner class (Class code: `0x35`)](EDT-01.md#class-35)
-    * [Electrically operated blind/shade class (Class code: `0x60`)](EDT-02.md#class-60)
-    * [Electric lock class (Class code: `0x6F`)](EDT-02.md#class-6F)
+    * [Air cleaner class (Class code: 01-35)](EDT-01.md#class-35)
+    * [Electrically operated blind/shade class (Class code: 02-60)](EDT-02.md#class-60)
+    * [Electric lock class (Class code: 02-6F)](EDT-02.md#class-6F)
 
 * v0.2.3 (2018-06-21)
   * Rewrote the deprecated old-fashioned codes related to the [`Buffer`](https://nodejs.org/api/buffer.html) to the new style. Now no warning message will be shown on the shell using node v10.
