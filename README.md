@@ -75,6 +75,10 @@ $ npm install serialport
 $ npm install node-echonet-lite
 ```
 
+## <a id="moekadenroom">ECHONET Lite Emulator</a>
+
+The ECHONET Lite devices are mainly available in Japan. If you don't have any ECHONET devices, it is recommended to use the [MoekadenRoom](https://github.com/SonyCSL/MoekadenRoom) which is an ECHONET Lite Emulator. [MoekadenRoom](https://github.com/SonyCSL/MoekadenRoom) emulates 6 types of devices (classes): Home air conditioner class, General lighting class, Electrically operated blind/shade class, Electric lock class, Temperature sensor class, and Low-voltage smart electric energy meter class. The node-echonet-lite supports the classes.
+
 ---------------------------------------
 ## Table of Contents
 
