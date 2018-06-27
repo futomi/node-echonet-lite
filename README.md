@@ -1219,7 +1219,7 @@ As described above, the `formatted` property is implemented in the [`Response`](
 The sample code below shows how to code a ECHONET packet analyzer. The [`data`](#data-event) event and the [`sent`](#sent-event) event fired on the `EchonetLite` object are listened, then the formatted text derived from the [`Response`](#Response-object) object is output.
 
 ```JavaScript
-var EchonetLite = require('../lib/node-echonet-lite.js');
+var EchonetLite = require('node-echonet-lite');
 var el = new EchonetLite({'lang': 'en', 'type': 'lan'});
 
 el.init((err) => {
