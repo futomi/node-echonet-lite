@@ -112,22 +112,16 @@ Code      | Type (English)           | Type (Japanese)
 `1`       | Specified message format | 規定電文形式
 `2`       | Arbitrary message format | 任意電文形式
 
-#### Identification number
+#### <a id="EPC-0E-F0-83">Identification number</a>
 * EPC: `0x83`
 
 Property      | Type    | Description
 :-------------|:--------|:-----------
 `code`        | Number  | This property indicates the manufacturer code as an integer.
 `uid`         | String  | This property indicates the unique ID defined by the manufacturer as hexadecimal representation.
+`name`        | String  | This property indicates the manufacturer name corresponding to the manufacturer code. If the name corresponding to the code is not known, this value is set to an empty string.
 
-The value of the `code` property must be an integer in the range of `0x000000` to `0xFFFFFF`. The byte length of the value of the `uid` property must be equal to or less than 13 bytes.
-
-```
-{
-  `code`: 0x000008,
-  `uid` : '0102030405060708090A0B0C0D'
-}
-```
+The mapping of manufacturer code and name are not disclosed by [ECHONET CONSORTIUM](https://echonet.jp/english/). For now, the mapping is really poor because it depends on the devices I have personally.  If you try this EPC, please let me know the code and the web page that the device is introduced.
 
 #### Fault content
 * EPC: `0x89`

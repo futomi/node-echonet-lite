@@ -1474,6 +1474,9 @@ function parseTempEdt(buf) {
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
 
+* v0.4.0 (2018-06-27)
+  * Added the `name` property in the response of [EPC 0E-F0-83](EDT-0E.md#EPC-0E-F0-83) (Super Class Group, Device Object Super Class, Identification number), which mean the manufacturer name.
+
 * v0.3.0 (2018-06-24)
   * Added the EPC parsers as follows:
     * [Air cleaner class (Class code: 01-35)](EDT-01.md#class-35)
