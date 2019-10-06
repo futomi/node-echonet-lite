@@ -9,7 +9,7 @@ The node-echonet-lite module support the classes in this class group as follows:
 * [Device Object Super Class (Class code: N/A)](#class-00)
 
 ---------------------------------------
-### <a name="class-00">Device Object Super Class</a>
+### <a id="class-00">Device Object Super Class</a>
 * Class group code: N/A
 * Class code: N/A
 

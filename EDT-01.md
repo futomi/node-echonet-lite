@@ -10,7 +10,7 @@ The node-echonet-lite module support the classes in this class group as follows:
 * [Air cleaner class (Class code: `0x35`)](#class-35)
 
 ---------------------------------------
-### <a name="class-30">Home air conditioner class</a>
+### <a id="class-30">Home air conditioner class</a>
 * Class group code: `0x01`
 * Class code: `0x30`
 
@@ -562,7 +562,7 @@ Property      | Type    | Description
 
 
 ---------------------------------------
-### <a name="class-35">Air cleaner class</a>
+### <a id="class-35">Air cleaner class</a>
 * Class group code: `0x01`
 * Class code: `0x35`
 

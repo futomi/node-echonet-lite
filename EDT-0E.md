@@ -10,7 +10,7 @@ The node-echonet-lite module support the classes in this class group as follows:
 * [Node profile class (Class code: `0xF0`)](#class-F0)
 
 ---------------------------------------
-### <a name="class-00">Profile object super class</a>
+### <a id="class-00">Profile object super class</a>
 * Class group code: `0x0E`
 * Class code: N/A
 
@@ -86,7 +86,7 @@ Property      | Type    | Description
 `list`        | Array   | This property indicates a list of EPCs which the device supports as Get.
 
 ---------------------------------------
-### <a name="class-F0">Node profile class</a>
+### <a id="class-F0">Node profile class</a>
 * Class group code: `0x0E`
 * Class code: `0xF0`
 

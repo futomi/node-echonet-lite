@@ -12,7 +12,7 @@ The node-echonet-lite module support the classes in this class group as follows:
 * [Air pressure sensor class (Class code: `0x2D`)](#class-2D)
 
 ---------------------------------------
-### <a name="class-11">Temperature sensor class</a>
+### <a id="class-11">Temperature sensor class</a>
 * Class group code: `0x00`
 * Class code: `0x11`
 
@@ -31,7 +31,7 @@ Property      | Type    | Description
 `temperature` | Number  | This property indicates the measured temperature value. The temperature in units of Celsius.
 
 ---------------------------------------
-### <a name="class-12">Humidity sensor class</a>
+### <a id="class-12">Humidity sensor class</a>
 * Class group code: `0x00`
 * Class code: `0x12`
 
@@ -50,7 +50,7 @@ Property      | Type    | Description
 `humidity`    | Number  | This property indicates measured value of relative humidity in %.
 
 ---------------------------------------
-### <a name="class-22">Electric energy sensor class</a>
+### <a id="class-22">Electric energy sensor class</a>
 * Class group code: `0x00`
 * Class code: `0x22`
 
@@ -104,7 +104,7 @@ Property      | Type    | Description
 `voltage`     | Number  | This property indicates effective voltage value in volts.
 
 ---------------------------------------
-### <a name="class-2D">Air pressure sensor class</a>
+### <a id="class-2D">Air pressure sensor class</a>
 * Class group code: `0x00`
 * Class code: `0x2D`
 

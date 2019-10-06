@@ -33,9 +33,14 @@ The ECHONET Lite specification defines a lot of classes (profiles of devices), t
   * Air cleaner class (Class code: `0x35`)
 * Housing/Facilities-related Device Class Group (Class Group code: `0x02`)
   * Electrically operated blind/shade class (Class code: `0x60`)
+  * Electrically operated rain sliding door/shutter class (Class code: `0x63`)
   * Electric lock class (Class code: `0x6F`)
+  * Instantaneous water heater class (Class code: `0x72`)
+  * Power distribution board metering class (Class code: `0x87`)
   * Low-voltage smart electric energy meter class (Class code: `0x88`)
   * General lighting class (Class code: `0x90`)
+* Cooking/Household-related Device Class Group (Class Group code: `0x03`)
+  * Combination microwave oven(Electronic oven) class (Class code: `0xB8`)
 * Profile class Group (Class Group Code: `0x0E`)
   * Node Profile Class (Class code: `0x0F`)
 
@@ -1200,9 +1205,14 @@ This module supports the Classes specified in the ECHONET Lite specification as 
   * [Air cleaner class (Class code: `0x35`)](EDT-01.md#class-35)
 * [Housing/Facilities-related Device Class Group (Class Group code: `0x02`)](EDT-02.md)
   * [Electrically operated blind/shade class (Class code: `0x60`)](EDT-02.md#class-60)
+  * [Electrically operated rain sliding door/shutter class (Class code: `0x63`)](EDT-02.md#class-63)
   * [Electric lock class (Class code: `0x6F`)](EDT-02.md#class-6F)
+  * [Instantaneous water heater class (Class code: `0x72`)](EDT-02.md#class-72)
+  * [Power distribution board metering class (Class code: `0x87`)](EDT-02.md#class-87)
   * [Low-voltage smart electric energy meter class (Class code: `0x88`)](EDT-02.md#class-88)
   * [General lighting class (Class code: `0x90`)](EDT-02.md#class-90)
+* [Cooking/Household-related Device Class Group (Class Group code: `0x03`)](EDT-03.md)
+  * [Combination microwave oven(Electronic oven) class (Class code: `0xB8`)](EDT-03.md#class-B8)
 * [Profile class Group (Class Group Code: `0x0E`)](EDT-0E.md)
   * [Profile Object Super Class (Class code: N/A)](EDT-0E.md#class-00)
   * [Node Profile Class (Class code: `0xF0`)](EDT-0E.md#class-F0)
@@ -1473,6 +1483,13 @@ function parseTempEdt(buf) {
 
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
+
+* v0.5.0 (2019-10-06)
+  * Added the EPC parsers as follows:
+    * [Electrically operated rain sliding door/shutter class (Class code: 02-63)](EDT-02.md#class-63)
+    * [Instantaneous water heater class (Class code: 02-72)](EDT-02.md#class-72)
+    * [Power distribution board metering class (Class code: 02-87)](EDT-02.md#class-87)
+    * [Combination microwave oven (Electronic oven) class (Class code: 03-B8)](EDT-03.md#class-B8)
 
 * v0.4.0 (2018-06-27)
   * Added the `name` property in the response of [EPC 0E-F0-83](EDT-0E.md#EPC-0E-F0-83) (Super Class Group, Device Object Super Class, Identification number), which mean the manufacturer name.
