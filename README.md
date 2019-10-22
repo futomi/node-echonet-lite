@@ -446,12 +446,16 @@ Property | Type   | Required | Description
 
 If you set `lan` to `type` property, the additional properties are required as follows:
 
-Property | Type   | Required | Description
-:--------|:-------|:---------|:-----------
-`netif`  | String | optional | Specify the multicast interface as an IPv4 address.
+Property     | Type    | Required | Description
+:------------|:--------|:---------|:-----------
+`netif`      | String  | optional | Specify the multicast interface as an IPv4 address.
+`membership` | Boolean | optional | Joining the multicast group or not. The default value is `true`.
 
 If the `netif` is not specified, all available network interfaces will be joined to a multicast group. If you want to use one network interface, set the `netif` parameter to the IPv4 address representing the network interface you want to use.
 
+The `membership` indicates whether joining the multicast group (`true`) or not (`false`). Note that the [`notify` event](#notify-event) would not work if this parameter is set to `false`. Basically, it is strongly recommended not to specify this parameter unless you encounter an error related to multicast.
+
+The `membership` was introduced for Windows WSL (Windows Subsystem for Linux). As far as I know, some [node.js methods related to udp multicast](https://nodejs.org/api/dgram.html#dgram_socket_dropmembership_multicastaddress_multicastinterface) throws an exception. For now, no complete solution for WSL is found.
 
 If you set `wisunb` to `type` property, the additional properties are required as follows:
 
@@ -1483,6 +1487,10 @@ function parseTempEdt(buf) {
 
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
+
+* v0.5.1 (2019-10-22)
+  * Added a workaround for WSL (Windows Subsystem for Linux).
+    * Added the `membership` parameter on the [`EchinetLite`](#Constructor) constructor.
 
 * v0.5.0 (2019-10-06)
   * Added the EPC parsers as follows:
