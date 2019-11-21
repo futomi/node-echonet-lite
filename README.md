@@ -24,6 +24,8 @@ The node-echonet-lite mainly has functionalities as follows:
 The ECHONET Lite specification defines a lot of classes (profiles of devices), the node-echonet-lite currently supports some classes as follows:
 
 * Sensor-related Device Class Group (Class Group code: `0x00`)
+  * Crime prevention sensor class (Class code: `0x02`)
+  * Visitor sensor class (Class code: `0x08`)
   * Temperature sensor class (Class code: `0x11`)
   * Humidity sensor class (Class code: `0x12`)
   * Electric energy sensor class (Class code: `0x22`)
@@ -41,6 +43,8 @@ The ECHONET Lite specification defines a lot of classes (profiles of devices), t
   * General lighting class (Class code: `0x90`)
 * Cooking/Household-related Device Class Group (Class Group code: `0x03`)
   * Combination microwave oven(Electronic oven) class (Class code: `0xB8`)
+* Audiovisual-related Device Class Group (Class Group code: `0x06`)
+  * Display class (Class code: `0x01`)
 * Profile class Group (Class Group Code: `0x0E`)
   * Node Profile Class (Class code: `0x0F`)
 
@@ -108,6 +112,7 @@ The ECHONET Lite devices are mainly available in Japan. If you don't have any EC
 	* [`setPropertyValue(address, eoj, epc, edt[, callback])`](#setPropertyValue-method)
 	* [`send(address, data[, callback])`](#send-method)
 	* [`close([callback])`](#close-method)
+	* [`setTransactionId(id)`](#setTransactionId-method)
 * [Events](#Events)
 	* [`notify` event](#notify-event)
 	* [`data` event](#data-event)
@@ -926,6 +931,24 @@ el.close(() => {
 });
 ```
 
+### <a id="setTransactionId-method">setTransactionId(*id*)</a>
+
+This method sets the transaction ID (a.k.a. TID). The TID must be an integer in the range of `0` to `65535`.
+
+If the TID is set using this method, it will be used in subsequent request packets. Note that the ID is *not* automatically incremented. You have to manage TIDs by yourself.
+
+```javascript
+el.setTransactionId(1234);
+```
+
+Basically, you don't have to use this method because a transaction ID is automatically generated and incremented whenever a request packet is created. Only if you need to manage transaction IDs by yourself, use this method.
+
+If `null` is passed to this method, the TID will be cleared. That is, TIDs will be automatically generated for subsequent requests.
+
+```javascript
+el.setTransactionId(null);
+```
+
 ---------------------------------------
 ## <a id="Events">Events</a>
 
@@ -1200,6 +1223,8 @@ This module supports the Classes specified in the ECHONET Lite specification as 
 * [Super Class Group (Class Group code: N/A)](EDT-FF.md)
   * [Device Object Super Class (Class code: N/A)](EDT-FF.md#class-00)
 * [Sensor-related Device Class Group (Class Group code: `0x00`)](EDT-00.md)
+  * [Crime prevention sensor class (Class code: `0x02`)](EDT-00.md#class-02)
+  * [Visitor sensor class (Class code: `0x08`)](EDT-00.md#class-08)
   * [Temperature sensor class (Class code: `0x11`)](EDT-00.md#class-11)
   * [Humidity sensor class (Class code: `0x12`)](EDT-00.md#class-12)
   * [Electric energy sensor class (Class code: `0x22`)](EDT-00.md#class-22)
@@ -1217,6 +1242,8 @@ This module supports the Classes specified in the ECHONET Lite specification as 
   * [General lighting class (Class code: `0x90`)](EDT-02.md#class-90)
 * [Cooking/Household-related Device Class Group (Class Group code: `0x03`)](EDT-03.md)
   * [Combination microwave oven(Electronic oven) class (Class code: `0xB8`)](EDT-03.md#class-B8)
+* [Audiovisual-related Device Class Group (Class Group code: `0x06`)](EDT-06.md)
+  * [Display class (Class code: `0x01`)](EDT-06.md#class-01)
 * [Profile class Group (Class Group Code: `0x0E`)](EDT-0E.md)
   * [Profile Object Super Class (Class code: N/A)](EDT-0E.md#class-00)
   * [Node Profile Class (Class code: `0xF0`)](EDT-0E.md#class-F0)
@@ -1487,6 +1514,15 @@ function parseTempEdt(buf) {
 
 ---------------------------------------
 ## <a id="Release-Note">Release Note</a>
+
+* v0.6.0 (2019-11-21)
+  * Supported unknown EPCs.
+    * In previous versions, the [`getPropertyValue()`](#getPropertyValue-method) and [`setPropertyValue()`](#setPropertyValue-method) methods return an error if unknown EPC was specified. Now, The [`getPropertyValue()`](#getPropertyValue-method) method accepts unknown EPCs, it does not parse the EDT, passes the `Buffer` object representing the EDT to the callback function. The [`setPropertyValue()`](#setPropertyValue-method) now accepts a `Buffer` object for EDT.
+  * Added the EPC parsers as follows:
+    * [Crime prevention sensor class (Class code: 00-02)](EDT-00.md#class-02)
+    * [Visitor sensor class (Class code: 00-08)](EDT-00.md#class-08)
+    * [Display class (Class code: 06-01)](EDT-06.md#class-01)
+  * Added the [`setTransactionId()`](#setTransactionId-method) method
 
 * v0.5.1 (2019-10-22)
   * Added a workaround for WSL (Windows Subsystem for Linux).
